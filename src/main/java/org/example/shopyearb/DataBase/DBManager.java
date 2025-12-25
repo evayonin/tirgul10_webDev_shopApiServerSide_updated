@@ -1,6 +1,7 @@
 package org.example.shopyearb.DataBase;
 
 import jakarta.annotation.PostConstruct;
+import org.example.shopyearb.Entity.User;
 import org.springframework.stereotype.Component;
 
 import java.sql.*;
@@ -32,33 +33,32 @@ public class DBManager {
 
 
 
-//
-//    public void insertUser(User user) {
-//        String sql = "INSERT INTO users (username, password) VALUES (?, ?)";
-//        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-//            statement.setString(1, user.getUsername());
-//            statement.setString(2, user.getPassword());
-//            statement.executeUpdate();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    public List<User> getAllUsers() {
-//        List<User> users = new ArrayList<>();
-//        try (Statement statement = connection.createStatement();
-//             ResultSet rs = statement.executeQuery("SELECT * FROM users")) {
-//
-//            while (rs.next()) {
-//                users.add(new User(
-//                        rs.getInt("id"),
-//                        rs.getString("username"),
-//                        rs.getString("password")
-//                ));
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return users;
-//    }
+
+    public void insertUser(User user) {
+        String sql = "INSERT INTO users (username, password) VALUES (?, ?)";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, user.getName());
+            statement.setString(2, user.getPassword());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<User> getAllUsers() {
+        List<User> users = new ArrayList<>();
+        try (Statement statement = connection.createStatement();
+             ResultSet rs = statement.executeQuery("SELECT * FROM users")) {
+
+            while (rs.next()) {
+                users.add(new User(
+                        rs.getString("username"),
+                        rs.getString("password")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
 }
