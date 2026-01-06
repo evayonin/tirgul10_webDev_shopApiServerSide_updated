@@ -1,6 +1,8 @@
 package org.example.shopyearb.DataBase;
 
 import jakarta.annotation.PostConstruct;
+import org.example.shopyearb.Entity.Category;
+import org.example.shopyearb.Entity.Product;
 import org.example.shopyearb.Entity.User;
 import org.springframework.stereotype.Component;
 
@@ -26,6 +28,64 @@ public class DBManager {
             e.printStackTrace();
         }
     }
+
+   public List<Category> getAllCategories(){
+        List<Category> categories = new ArrayList<>();
+        String sql = "SELECT * FROM categories";
+        try(PreparedStatement ps = connection.prepareStatement(sql)){
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()){
+               Category category = new Category(resultSet.getInt("id"),resultSet.getString("name"));
+               categories.add(category);
+            }
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return categories;
+   }
+
+   public List<Product> getProductsByCategoryId (int categoryId){
+      List<Product> products = new ArrayList<>();
+      String sql = "SELECT * FROM products WHERE category_id = ?";
+      try(PreparedStatement ps  = connection.prepareStatement(sql)){
+        ps.setInt(1,categoryId);
+        ResultSet resultSet = ps.executeQuery();
+
+        while (resultSet.next())
+        {
+            Product product = new Product(resultSet.getInt("id"),
+                    resultSet.getInt("price"),resultSet.getString("name"),resultSet.getString("color"));
+            products.add(product);
+        }
+      }catch (SQLException e){
+          e.printStackTrace();
+      }
+      return products;
+   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public void insertUser(User user) {
         String sql = "INSERT INTO users (username, password) VALUES (?, ?)";

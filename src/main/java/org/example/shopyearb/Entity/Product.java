@@ -1,26 +1,24 @@
 package org.example.shopyearb.Entity;
 
-import java.awt.*;
-
 public class Product {
-private int barcode;
+private int id;
 private double price;
 private String name;
 private String color;
 
-    public Product(int barcode, double price, String name, String color) {
-        this.barcode = barcode;
+    public Product(int id, double price, String name, String color) {
+        this.id = id;
         this.price = price;
         this.name = name;
         this.color = color;
     }
 
-    public int getBarcode() {
-        return barcode;
+    public int getId() {
+        return id;
     }
 
-    public void setBarcode(int barcode) {
-        this.barcode = barcode;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public double getPrice() {
@@ -50,7 +48,7 @@ private String color;
     @Override
     public String toString() {
         return "Product{" +
-                "barcode=" + barcode +
+                "barcode=" + id +
                 ", price=" + price +
                 ", name='" + name + '\'' +
                 ", color=" + color +

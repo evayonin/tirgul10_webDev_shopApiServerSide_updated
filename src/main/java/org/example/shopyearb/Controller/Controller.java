@@ -1,6 +1,7 @@
 package org.example.shopyearb.Controller;
 
 import org.example.shopyearb.DataBase.DBManager;
+import org.example.shopyearb.Entity.Category;
 import org.example.shopyearb.Entity.Product;
 import jakarta.annotation.PostConstruct;
 import org.example.shopyearb.Entity.User;
@@ -16,20 +17,49 @@ import java.util.List;
 public class Controller {
 
 
-    private List<Product> productList = new ArrayList<>();
 
     @Autowired
     private DBManager dbManager;
+
+    @GetMapping("/get-categories")
+    public List<Category> getCategories(){
+        return this.dbManager.getAllCategories();
+    }
+
+    @GetMapping("/get-products-by-category-id")
+    public List<Product> getProductByCategory(int categoryId){
+      return this.dbManager.getProductsByCategoryId(categoryId);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     @PostConstruct
     //הפונקציה תקרא אוטומטית שהתוכנית עולה בלי שנזמן אותה
     public void init(){
-        this.productList.add(new Product(111,2.5,"apple", "RED"));
-        this.productList.add(new Product(222,15.5,"banana", "YELLOW"));
-        this.productList.add(new Product(333,14.5,"Book", "BLUE"));
 
-        System.out.println(this.productList);
     }
 
     @RequestMapping("/say-hello")
@@ -37,10 +67,7 @@ public class Controller {
        return "Hello";
     }
 
-    @GetMapping("/get-products")
-    public List<Product> getProducts(){
-        return this.productList;
-    }
+
 
     @PostMapping ("/register-user")
     public BasicResponse register(@RequestBody User user){
@@ -56,5 +83,8 @@ public class Controller {
      }
       return new BasicResponse(successes,errorCode);
     }
+
+
+
 
 }
