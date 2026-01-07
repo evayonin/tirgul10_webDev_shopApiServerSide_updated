@@ -45,10 +45,12 @@ public class DBManager {
         return categories;
    }
 
-   public List<Product> getProductsByCategoryId (int categoryId){
+   public List<Product> getProductsByCategoryId (int categoryId){ // מקבל מהמתודה בקונטרולר איידי של קטגוריה
       List<Product> products = new ArrayList<>();
+      // השאילתא:
       String sql = "SELECT * FROM products WHERE category_id = ?"; // השמות של העמודות בשאילתא צריכים להיות תןאמים לשמות העמודות בטבלה במסד נתונים.
-      try(PreparedStatement ps  = connection.prepareStatement(sql)){
+       // ככה יודע להביא לי את המוצרים רק בקטגוריה שבחרתי
+      try(PreparedStatement ps  = connection.prepareStatement(sql)){ // פריפרד סטייטמנט מקבלת את מחרוזת השאילתא ומחברת על ידי קונקשן למסד נתונים
         ps.setInt(1,categoryId);
         ResultSet resultSet = ps.executeQuery(); // מה שחוזר מהשאילתא
 
@@ -61,7 +63,7 @@ public class DBManager {
       }catch (SQLException e){
           e.printStackTrace();
       }
-      return products;
+      return products; // מחזיר את רשימת המוצרים בטבלה לפי אותה קטגוריה שנבחרה בצד לקוח
    }
 
 

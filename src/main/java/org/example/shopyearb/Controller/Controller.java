@@ -27,7 +27,7 @@ public class Controller {
     }
 
     @GetMapping("/get-products-by-category-id")
-    public List<Product> getProductByCategory(int categoryId){
+    public List<Product> getProductByCategory(int categoryId){ // מחזיר את המוצרים מהדאטה בייס לפי האיידי של הקטגוריה ובסוף יציג ללקוח בצד לקוח את המוצרים
       return this.dbManager.getProductsByCategoryId(categoryId);
     }
 
