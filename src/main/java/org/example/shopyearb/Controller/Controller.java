@@ -76,6 +76,7 @@ public class Controller {
      if (user!=null){
          User dbUser = this.dbManager.getUserByUsername(user.getName());
          if (dbUser == null){
+             // אין יוזר כזה אז ייתן לו ליצור יוזר חדש עם השם משתמש הזה
              this.dbManager.insertUser(user);
              successes = true;
              errorCode = null;
@@ -83,7 +84,8 @@ public class Controller {
      }
       return new BasicResponse(successes,errorCode);
     }
-
+    // לא צריך פה בדיקה מצד לקוח (isEmpty!) כי זה לא כמו ששי עשה בתנאים מקוננים בדיקה עבור כל פרמטר שם פרטי ואז שם משפחה לא נאל (בשביל ה error codes) כך ניתן לשים ככה פרמטר ריק עבור כל אחד בדפדפן וזה כן ייצור אובייקט אבל עם שדות נאל (ופה בודק אם בכלל היוזר נאל ז"א שבכלל לא קיים אובייקט).
+    // אז גם אם מישהו ינסה להכניס ככה יוזר ריק מהדפדפן הוא לא יצליח להוסיף אותו בגלל שלא יעבור את התנאי הפנימי - כי היוזר לא הוכנס ל db, למרות שהיה עובר את התנאי החיצוני.
 
 
 
